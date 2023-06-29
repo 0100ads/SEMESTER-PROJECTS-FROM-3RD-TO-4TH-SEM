@@ -310,3 +310,48 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 
 confusion_matrix(y_true=y_test, y_pred=y_pred3)
+
+#project 2
+import pandas as pd
+
+from google.colab import files
+uploaded = files.upload()
+
+def insert(self, key):
+    new_node = Node(key)
+    if not self.root:
+        self.root = new_node
+        return
+    current_node = self.root
+    parent = None
+    while current_node:
+        parent = current_node
+        if new_node.key.ID < current_node.key.ID:
+            current_node = current_node.left
+        else:
+            current_node = current_node.right
+    new_node.parent = parent
+    if new_node.key.ID < parent.key.ID:
+        parent.left = new_node
+    else:
+        parent.right = new_node
+    self.splay(new_node)
+def insert(self, key):
+    new_node = Node(key)
+    if not self.root:
+        self.root = new_node
+        return
+    current_node = self.root
+    parent = None
+    while current_node:
+        parent = current_node
+        if new_node.key.ID < current_node.key.ID:
+            current_node = current_node.left
+        else:
+            current_node = current_node.right
+    new_node.parent = parent
+    if new_node.key.ID < parent.key.ID:
+        parent.left = new_node
+    else:
+        parent.right = new_node
+    self.splay(new_node)
