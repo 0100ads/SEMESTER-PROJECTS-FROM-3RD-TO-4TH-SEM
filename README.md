@@ -1,0 +1,312 @@
+# story
+My masterpiece
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import tensorflow as tf
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA, TruncatedSVD
+import matplotlib.patches as mpatches
+import time
+
+# Classifier Libraries
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+import collections
+
+
+# Other Libraries
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
+from imblearn.pipeline import make_pipeline as imbalanced_make_pipeline
+from imblearn.over_sampling import SMOTE
+from imblearn.under_sampling import NearMiss
+from imblearn.metrics import classification_report_imbalanced
+from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, accuracy_score, classification_report
+from collections import Counter
+from sklearn.model_selection import KFold, StratifiedKFold
+import warnings
+warnings.filterwarnings("ignore")
+
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+df = pd.read_csv('/content/drive/MyDrive/dataset /creditcard.csv')
+df.head
+
+df.describe()
+
+# Good No Null Values!
+df.isnull().sum().max()
+
+df.columns
+# The classes are heavily skewed we need to solve this issue later.
+print('No Frauds', round(df['Class'].value_counts()[0]/len(df) * 100,2), '% of the dataset')
+print('Frauds', round(df['Class'].value_counts()[1]/len(df) * 100,2), '% of the dataset')
+
+import numpy as np
+import pandas as pd
+
+import os
+for dirname, _, filenames in os.walk('../input/credit-card-fraud/creditcard.csv'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.ensemble import RandomForestClassifier
+import warnings
+warnings.filterwarnings('ignore')
+
+import numpy as np
+import pandas as pd
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df.describe()
+
+X = df.drop(columns=['V19'])
+y = df['V19']
+
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+from sklearn.tree import DecisionTreeClassifier as DTC
+from sklearn.ensemble import RandomForestClassifier as RFC
+
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+from sklearn.tree import DecisionTreeClassifier as DTC
+from sklearn.ensemble import RandomForestClassifier as RFC
+
+from sklearn.naive_bayes import GaussianNB
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
+
+X_train.shape, X_test.shape, y_train.shape, y_test.shape
+
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+
+
+X_train = np.random.randn(100, 10)
+y_train = np.random.randint(2, size=100)
+
+
+clf1 = DTC(criterion='gini')
+clf2 = RFC(n_estimators=5, criterion='gini')
+clf3 = GaussianNB()
+clf4 = SVC(kernel='linear')
+clf5 = KNeighborsClassifier(n_neighbors=3)
+clf6 = LogisticRegression()
+
+
+try:
+    clf1.fit(X_train, y_train)
+    print('1st Model is done!')
+except Exception as e:
+    print(f'Error in clf1.fit: {e}')
+
+clf2.fit(X_train, y_train)
+print('2nd Model is done!')
+clf3.fit(X_train, y_train)
+print('3rd Model is done!')
+clf4.fit(X_train, y_train)
+print('4th Model is done!')
+clf5.fit(X_train, y_train)
+print('5th Model is done!')
+clf6.fit(X_train, y_train)
+print('6th Model is done!')
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+
+# generate a random classification dataset
+X, y = make_classification(n_samples=1000, n_features=8, n_classes=2, random_state=42)
+
+# split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# initialize models
+clf1 = DTC(criterion='gini')
+clf2 = RFC(n_estimators=5, criterion='gini')
+clf3 = GaussianNB()
+
+# fit models
+clf1.fit(X_train, y_train)
+clf2.fit(X_train, y_train)
+clf3.fit(X_train, y_train)
+
+# generate predictions
+y_pred1 = clf1.predict(X_test)
+y_pred2 = clf2.predict(X_test)
+y_pred3 = clf3.predict(X_test)
+
+# calculate accuracy scores
+print('1st Mode\'s accuracy-score is:', accuracy_score(y_true=y_test, y_pred=y_pred1))
+print('2nd Mode\'s accuracy-score is:', accuracy_score(y_true=y_test, y_pred=y_pred2))
+print('3rd Mode\'s accuracy-score is:', accuracy_score(y_true=y_test, y_pred=y_pred3))
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+
+#generate a random classification dataset
+X, y = make_classification(n_samples=1000, n_features=8, n_classes=2, random_state=42)
+
+#split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+#initialize models
+clf1 = DTC(criterion='gini')
+clf2 = RFC(n_estimators=5, criterion='gini')
+clf3 = GaussianNB()
+clf4 = SVC(kernel='linear')
+clf5 = KNeighborsClassifier(n_neighbors=3)
+clf6 = LogisticRegression()
+
+#fit models
+clf1.fit(X_train, y_train)
+clf2.fit(X_train, y_train)
+clf3.fit(X_train, y_train)
+clf4.fit(X_train, y_train)
+clf5.fit(X_train, y_train)
+clf6.fit(X_train, y_train)
+
+#generate predictions
+y_pred1 = clf1.predict(X_test)
+y_pred2 = clf2.predict(X_test)
+y_pred3 = clf3.predict(X_test)
+y_pred4 = clf4.predict(X_test)
+y_pred5 = clf5.predict(X_test)
+y_pred6 = clf6.predict(X_test)
+
+#calculate accuracy scores
+print('1st Mode\'s accuracy-score is:', accuracy_score(y_true=y_test, y_pred=y_pred1))
+print('2nd Mode\'s accuracy-score is:', accuracy_score(y_true=y_test, y_pred=y_pred2))
+print('3rd Mode\'s accuracy-score is:', accuracy_score(y_true=y_test, y_pred=y_pred3))
+print('4th Mode\'s accuracy-score is:', accuracy_score(y_true=y_test, y_pred=y_pred4))
+print('5th Mode\'s accuracy-score is:', accuracy_score(y_true=y_test, y_pred=y_pred5))
+print('6th Mode\'s accuracy-score is:', accuracy_score(y_true=y_test, y_pred=y_pred6))
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, f1_score
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+
+# generate a random classification dataset
+X, y = make_classification(n_samples=1000, n_features=8, n_classes=2, random_state=42)
+
+# split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# initialize models
+clf1 = DTC(criterion='gini')
+clf2 = RFC(n_estimators=5, criterion='gini')
+clf3 = GaussianNB()
+clf4 = SVC(kernel='linear')
+clf5 = KNeighborsClassifier(n_neighbors=3)
+clf6 = LogisticRegression()
+
+# fit models
+clf1.fit(X_train, y_train)
+clf2.fit(X_train, y_train)
+clf3.fit(X_train, y_train)
+clf4.fit(X_train, y_train)
+clf5.fit(X_train, y_train)
+clf6.fit(X_train, y_train)
+
+# generate predictions
+y_pred1 = clf1.predict(X_test)
+y_pred2 = clf2.predict(X_test)
+y_pred3 = clf3.predict(X_test)
+y_pred4 = clf4.predict(X_test)
+y_pred5 = clf5.predict(X_test)
+y_pred6 = clf6.predict(X_test)
+
+# calculate accuracy scores
+print('1st Model\'s F1-score is:', accuracy_score(y_true=y_test, y_pred=y_pred1))
+print('2nd Model\'s F1-score is:', accuracy_score(y_true=y_test, y_pred=y_pred2))
+print('3rd Model\'s F1-score is:', accuracy_score(y_true=y_test, y_pred=y_pred3))
+print('4th Model\'s F1-score is:', accuracy_score(y_true=y_test, y_pred=y_pred4))
+print('5th Model\'s F1-score is:', accuracy_score(y_true=y_test, y_pred=y_pred5))
+print('6th Model\'s F1-score is:', accuracy_score(y_true=y_test, y_pred=y_pred6))
+
+#Importing necessary libraries
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import recall_score
+
+# Generating dummy data
+X, y = make_classification(n_samples=1000, n_features=10, n_informative=5, n_redundant=0, random_state=1)
+
+# Splitting the data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+
+# Initializing classifiers
+dt = DecisionTreeClassifier()
+rf = RandomForestClassifier()
+gnb = GaussianNB()
+svm = SVC()
+lr = LogisticRegression()
+knn = KNeighborsClassifier()
+
+# Fitting the models on the training data
+dt.fit(X_train, y_train)
+rf.fit(X_train, y_train)
+gnb.fit(X_train, y_train)
+svm.fit(X_train, y_train)
+lr.fit(X_train, y_train)
+knn.fit(X_train, y_train)
+
+# Making predictions on the test data
+y_pred1 = dt.predict(X_test)
+y_pred2 = rf.predict(X_test)
+y_pred3 = gnb.predict(X_test)
+y_pred4 = svm.predict(X_test)
+y_pred5 = lr.predict(X_test)
+y_pred6 = knn.predict(X_test)
+
+# Calculating recall score for each model
+print('1st Mode\'s recall-score is:', recall_score(y_true=y_test, y_pred=y_pred1))
+print('2nd Mode\'s recall-score is:', recall_score(y_true=y_test, y_pred=y_pred2))
+print('3rd Mode\'s recall-score is:', recall_score(y_true=y_test, y_pred=y_pred3))
+print('4th Mode\'s recall-score is:', recall_score(y_true=y_test, y_pred=y_pred4))
+print('5th Mode\'s recall-score is:', recall_score(y_true=y_test, y_pred=y_pred5))
+print('6th Mode\'s recall-score is:', recall_score(y_true=y_test, y_pred=y_pred6))
+
+from sklearn.metrics import classification_report
+
+from sklearn.metrics import confusion_matrix
+
+confusion_matrix(y_true=y_test, y_pred=y_pred3)
