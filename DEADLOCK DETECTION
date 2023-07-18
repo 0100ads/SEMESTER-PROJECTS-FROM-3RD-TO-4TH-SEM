@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_PROCESSES 10
+#define MAX_RESOURCES 10
+
+int available[MAX_RESOURCES];
+int maximum[MAX_PROCESSES][MAX_RESOURCES];
+int allocation[MAX_PROCESSES][MAX_RESOURCES];
+int need[MAX_PROCESSES][MAX_RESOURCES];
+bool finished[MAX_PROCESSES];
+
+int num_processes, num_resources;
+
+void inputData() {
+    printf("Enter the number of processes: ");
+    scanf("%d", &num_processes);
+
+    printf("Enter the number of resources: ");
+    scanf("%d", &num_resources);
+
+    printf("Enter the available resources: ");
+    for (int i = 0; i < num_resources; i++) {
+        scanf("%d", &available[i]);
+    }
+
+    printf("Enter the maximum resources required by each process:\n");
+    for (int i = 0; i < num_processes; i++) {
+        for (int j = 0; j < num_resources; j++) {
+            scanf("%d", &maximum[i][j]);
+        }
+    }
+
+    printf("Enter the resources allocated to each process:\n");
+    for (int i = 0; i < num_processes; i++) {
+        for (int j = 0; j < num_resources; j++) {
+            scanf("%d", &allocation[i][j]);
+            need[i][j] = maximum[i][j] - allocation[i][j];
+        }
+    }
+}
+
+bool isSafe(int process) {
+    for (int i = 0; i < num_resources; i++) {
+        if (need[process][i] > available[i])
+            return false;
+    }
+    return true;
+}
+
+bool detectDeadlock() {
+    int work[MAX_RESOURCES];
+    for (int i = 0; i < num_resources; i++) {
+        work[i] = available[i];
+    }
+
+    int safe_sequence[MAX_PROCESSES];
+    int safe_sequence_count = 0;
+
+    for (int count = 0; count < num_processes; count++) {
+        bool found = false;
+        for (int i = 0; i < num_processes; i++) {
+            if (!finished[i] && isSafe(i)) {
+                for (int j = 0; j < num_resources; j++) {
+                    work[j] += allocation[i][j];
+                }
+                safe_sequence[safe_sequence_count++] = i;
+                finished[i] = true;
+                found = true;
+            }
+        }
+
+        if (!found)
+            break;
+    }
+
+    if (safe_sequence_count < num_processes) {
+        printf("Deadlock detected! The processes involved in the deadlock are:\n");
+        for (int i = 0; i < num_processes; i++) {
+            if (!finished[i])
+                printf("Process %d\n", i);
+        }
+        return true;
+    } else {
+        printf("No deadlock detected.\n");
+        return false;
+    }
+}
+
+int main() {
+    inputData();
+
+    for (int i = 0; i < num_processes; i++) {
+        finished[i] = false;
+    }
+
+    detectDeadlock();
+
+    return 0;
+}
