@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Prediction</h1>
+        <div class="weather-info">
+            <h2>City: <span id="city"></span></h2>
+            <h2>Temperature: <span id="temperature"></span>°C</h2>
+            <h2>Humidity: <span id="humidity"></span>%</h2>
+            <h2>Wind Speed: <span id="wind-speed"></span> m/s</h2>
+            <!-- Add more weather information here, like pressure, weather condition, etc. -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.weather-info {
+    border: 2px solid #333;
+    padding: 20px;
+}
+
+h2 {
+    margin: 10px 0;
+}
+
+/* Add more styling as needed */
